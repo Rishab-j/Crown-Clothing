@@ -12,7 +12,7 @@ import {
 } from './collection.styles';
 
 const CollectionPage = ({ collection }) => {
-  const { title, items } = collection;
+  const {items ,title } = collection;
   return (
     <CollectionPageContainer>
       <CollectionTitle>{title}</CollectionTitle>
