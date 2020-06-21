@@ -1,7 +1,3 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-
 // const config = {
 //     apiKey: "AIzaSyAFDsR5agXoYM8o8NKuZ18-PnTelhjBmaM",
 //     authDomain: "crwn-db-d5bee.firebaseapp.com",
@@ -12,6 +8,11 @@ import 'firebase/auth';
 //     appId: "1:972846238953:web:adda29ce8d280942773478",
 //     measurementId: "G-R7NCPGZKKT"
 //   };
+
+
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 // const config = {
 //   apiKey: "AIzaSyAFDsR5agXoYM8o8NKuZ18-PnTelhjBmaM",
@@ -94,11 +95,20 @@ export const convertCollectionsSnapshotToMap = collections => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
